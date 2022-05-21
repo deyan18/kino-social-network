@@ -1,5 +1,4 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
   <div
     class="flex items-center justify-center pb-12 px-4 "
   >
@@ -68,7 +67,7 @@
       </div>
     </div>
   </div>
-  </div>
+
 </template>
 
 <script>

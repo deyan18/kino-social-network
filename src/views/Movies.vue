@@ -1,83 +1,99 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
-
-<!-- Search Bar -->
-<div class="container px-5  mx-auto bg-gray-100">
-      <div class="text-center  mb-10">
-        
-        <div class="flex w-full justify-center  flex-row">
-
-            <div
-              class="
-                w-[42rem]
-                bg-white
-                rounded-2xl
-                flex
-                items-center
-                p-3
-                shadow-lg
-                border border-gray-200
-              "
-            >
-
-
-              <input
-                @keydown.enter="search"
-                placeholder="Search"
-                v-model="searchValue"
-                class="
-                  w-full
-                  pl-4
-                  outline-none
-                "
-              />
-               <CustomButton  @click="search" class="w-32 ml-4 shadow-lg">Search</CustomButton>
-            </div>
-           
-          
+  <!-- Search Bar -->
+  <div class="container px-5 mx-auto">
+    <div class="text-center mb-10">
+      <div class="flex w-full justify-center flex-row">
+        <div
+          class="
+            w-[42rem]
+            bg-white
+            rounded-2xl
+            flex
+            items-center
+            p-3
+            shadow-lg
+            border border-gray-200
+          "
+        >
+          <input
+            @keydown.enter="search"
+            placeholder="Search"
+            v-model="searchValue"
+            class="w-full pl-4 outline-none"
+          />
+          <CustomButton @click="search" class="w-32 ml-4 shadow-lg"
+            >Search</CustomButton
+          >
         </div>
       </div>
     </div>
+  </div>
 
-<v-lazy class="flex flex-wrap place-content-center">
-<Card v-for="result in results" :key="result.id" :title="result.title" type="Movie" :image="result.image" :id="result.id"></Card>
-</v-lazy>
-</div>
+ <Spinner v-if="showSpinner"></Spinner>
+
+
+  
+  <!-- Results -->
+  <ContentList>
+    <Card
+      v-for="result in results"
+      :key="result.id"
+      :title="result.title"
+      type="Movie"
+      :image="result.image"
+      :id="result.id"
+    ></Card>
+  </ContentList>
 </template>
 
 <script>
-import Card from '../components/Card.vue'
+import Card from "../components/Card.vue";
 import CustomButton from "../components/CustomButton.vue";
-export default{
-    name: 'Movies',
-    components: {Card, CustomButton},
-    data(){
-      return{
-        results: [],
+import ContentList from "../components/ContentList.vue";
+import Spinner from "../components/Spinner.vue";
+import NoResults from "../components/NoResults.vue";
+export default {
+  components: { Card, CustomButton, ContentList, Spinner, NoResults },
+  data() {
+    return {
+      results: [],
+      showSpinner: false,
+      searchValue: "",
+    };
+  },
+  mounted() {
+    this.showTopMovies();
+  },
+  methods: {
+    search: function () {
+      if (this.searchValue === "") {
+        this.showTopMovies();
+      } else {
+        this.results = [];
+        this.showSpinner = true;
+        fetch(
+          "https://imdb-api.com/en/API/SearchMovie/k_qy6es45c/" +
+            this.searchValue
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            this.results = result.results;
+            this.showSpinner = false;
+          })
+          .catch((error) => console.log("error", error));
       }
     },
-    mounted(){
-        console.log('AQUIII')
-        fetch('https://imdb-api.com/en/API/Top250Movies/k_qy6es45c')
-        .then(response => response.json())
-        .then(result => {
-            console.log('DENTRO');
+    showTopMovies: function () {
+      this.results = [];
+      this.showSpinner = true;
+      fetch("https://imdb-api.com/en/API/Top250Movies/k_qy6es45c")
+        .then((response) => response.json())
+        .then((result) => {
           this.results = result.items;
+          this.showSpinner = false;
         })
-        .catch(error => console.log('error', error));
+        .catch((error) => console.log("error", error));
     },
-    methods: {
-    search: function () {
-        
-        fetch('https://imdb-api.com/en/API/SearchMovie/k_qy6es45c/'+this.searchValue)
-        .then(response => response.json())
-        .then(result => {
-
-         this.results = result.results;
-        })
-        .catch(error => console.log('error', error));
-
-    }
   },
-}
+};
 </script>

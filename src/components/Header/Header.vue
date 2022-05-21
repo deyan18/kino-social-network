@@ -1,11 +1,11 @@
 <template>
 
-<div class="pb-10 bg-gray-100">
+<div class="pb-10 bg-gray-200">
     <div class="bg-white shadow-lg">
     <nav
       class="
         container
-        sm:px-0
+        md:px-0
         px-6
         py-4
         mx-auto
@@ -22,7 +22,7 @@
             text-gray-100
             md:text-2xl
           "
-          ><img src="../assets/logoLight.png" alt="" class="object-scale-down h-16 w-15">
+          ><img src="../../assets/logoLight.png" alt="" class="object-scale-down h-16 w-15">
         </router-link>
         <!-- Mobile menu button -->
         <div @click="toggleNav" class="flex md:hidden">
@@ -55,14 +55,13 @@
           md:flex md:space-y-0 md:flex-row md:items-center md:space-x-5 md:mt-0
         "
       >
-      <router-link :to="{name: 'Home'}" class="px-4 py-2 bg-gray-200 hover:bg-purple-600 hover:text-white transition rounded-lg ease-in duration-200 font-semibold hover:shadow-lg">Home</router-link>
-      <router-link :to="{name: 'Movies'}" class="px-4 py-2 bg-gray-200 hover:bg-purple-600 hover:text-white transition rounded-lg ease-in duration-200 font-semibold hover:shadow-lg">Movies</router-link>
-      <router-link :to="{name: 'TVShows'}" class="px-4 py-2 bg-gray-200 hover:bg-purple-600 hover:text-white transition rounded-lg ease-in duration-200 font-semibold hover:shadow-lg">TV Shows</router-link>
-      <router-link :to="{name: 'WatchList'}" class="px-4 py-2 bg-gray-200 hover:bg-purple-600 hover:text-white transition rounded-lg ease-in duration-200 font-semibold hover:shadow-lg">Watch List</router-link>
-      <router-link :to="{name: 'You'}" class="px-4 py-2 bg-gray-200 hover:bg-purple-600 hover:text-white transition rounded-lg ease-in duration-200 font-semibold hover:shadow-lg">
-       Profile
+       <router-link :to="{name: 'Home'}"><HeaderLink>Home</HeaderLink></router-link>
+       <router-link :to="{name: 'Movies'}"><HeaderLink>Movies</HeaderLink></router-link>
+       <router-link :to="{name: 'TVShows'}"><HeaderLink>TV Shows</HeaderLink></router-link>
+       <router-link :to="{name: 'WatchList'}"><HeaderLink>Watch List</HeaderLink></router-link>
+       <router-link :to="{name: 'You'}"><HeaderLink>Profile</HeaderLink></router-link>
+
       
-      </router-link>
 
       </ul>
     </nav>
@@ -72,7 +71,9 @@
 
 <script>
 import { ref } from 'vue';
+import HeaderLink from './HeaderLink.vue';
 export default {
+  components: { HeaderLink },
    setup() {
     let showMenu = ref(false);
     const toggleNav = () => (showMenu.value = !showMenu.value);

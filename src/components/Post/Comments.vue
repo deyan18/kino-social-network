@@ -1,5 +1,6 @@
 <template>
 
+<div>
 <div class="h-[22.9rem] overflow-y-scroll">
      <ul class="inline-block place-content-center">
              
@@ -7,6 +8,7 @@
   </ul>
 </div>
   <CommentBar :data="data"></CommentBar>
+  </div>
 </template>
 
 <script>

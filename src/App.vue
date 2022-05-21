@@ -1,12 +1,14 @@
 <template>
  <Header></Header>
+ <div class="min-h-screen bg-gray-200">
   <router-view />
+  </div>
 <Footer></Footer>
 </template>
 
 
 <script>
-import Header from './components/Header.vue'
+import Header from './components/Header/Header.vue'
 import Footer from './components/Footer.vue'
 import { getAuth, onAuthStateChanged} from '@firebase/auth'
 
