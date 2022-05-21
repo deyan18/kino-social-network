@@ -97,7 +97,7 @@ import Spinner from "../components/Spinner.vue";
 import NoResults from "../components/NoResults.vue";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
-import { tsThisType } from "@babel/types";
+
 export default {
   name: "Home",
   components: { Card, Post, ProfileCard, ContentList, CustomButton, Spinner, NoResults },
