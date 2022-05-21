@@ -1,0 +1,35 @@
+<template>
+ <Header></Header>
+  <router-view />
+<Footer></Footer>
+</template>
+
+
+<script>
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
+import { getAuth, onAuthStateChanged} from '@firebase/auth'
+
+  export default {
+    props: [],
+    components: {
+      Header,
+      Footer,
+    },
+    data(){
+      return{
+        showShare: false,
+        isLoggedIn: false
+      }
+    },
+    mounted(){
+      onAuthStateChanged(getAuth(), (user) =>{
+        if(user){
+          this.isLoggedIn = true;
+        } else{
+          this.isLoggedIn = false;
+        }
+      })
+    }
+  }
+</script>

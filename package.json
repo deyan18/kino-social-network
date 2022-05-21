@@ -1,0 +1,27 @@
+{
+  "name": "kino",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@heroicons/vue": "^1.0.6",
+    "firebase": "^9.6.11",
+    "vue": "^3.2.25",
+    "vue-moment": "^4.1.0",
+    "vue-router": "^4.0.14",
+    "vuefire": "^2.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.2.0",
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "prettier": "^2.6.2",
+    "prettier-plugin-tailwindcss": "^0.1.8",
+    "tailwindcss": "^3.0.23",
+    "vite": "^2.8.0"
+  }
+}
