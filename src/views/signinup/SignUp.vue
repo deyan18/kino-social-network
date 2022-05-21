@@ -11,36 +11,30 @@
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
+            <label for="name" class="sr-only">Name</label>
+            <input id="name" v-model="name" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Name" />
+          </div>
+          <div>
             <label for="email-address" class="sr-only">Email address</label>
-            <input id="email-address" v-model="email" name="email" type="email" autocomplete="email" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+            <input id="email-address" v-model="email" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Email address" />
           </div>
           <div>
             <label for="password" class="sr-only">Password</label>
-            <input id="password" v-model="password" name="password" type="password" autocomplete="current-password" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Password" />
+            <input id="password" v-model="password" type="password" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Password" />
           </div>
         </div>
 
-        <div class="flex items-center justify-center">
+        <ErrorMessage v-if="invalid" >The email or password are not valid.</ErrorMessage>
 
-
- 
-        </div>
-
-        <div>
-          <button @click="register" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <LockClosedIcon class="h-5 w-5 text-purple-500 group-hover:text-purple-400" aria-hidden="true" />
-            </span>
-            Create Account
-          </button>
-          <button @click="signInWithGoogle" class="mt-3 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <LoginIcon class="h-5 w-5 text-red-500 group-hover:text-red-400" aria-hidden="true" />
-            </span>
-            Google
-          </button>
+   
+        <div class="space-y-2">
+          <CustomButton @click="register">Create Account</CustomButton>
+          <GoogleButton @click="signInWithGoogle">Sign Up With Google</GoogleButton>
         </div>
      
+        <div class="text-sm flex items-center justify-center">
+            <router-link :to="{name: 'SignIn'}" class="font-medium text-purple-600 hover:text-purple-500"> Return to Log In </router-link>
+        </div>
     </div>
     
   </div>
@@ -48,23 +42,34 @@
 </template>
 
 <script>
-import { LockClosedIcon } from '@heroicons/vue/solid'
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { useRouter } from 'vue-router';
 import { auth } from '../../firebase.js'
+import ErrorMessage from './ErrorMessage.vue';
+import CustomButton from '../../components/CustomButton.vue';
+import GoogleButton from './GoogleButton.vue';
 export default {
   components: {
-    LockClosedIcon,
+
+    ErrorMessage,
+    CustomButton,
+    GoogleButton
   },
       data(){
       return{
         email: '',
         password: '',
-        router: useRouter()
+        name: '',
+        router: useRouter(),
+        invalid: false,
       }
     },
     methods: {
     register: function () {
+      if(!this.email.includes("@") || this.password === ""  || this.name === ""){
+        this.invalid = true;
+        return;
+      }
       createUserWithEmailAndPassword(auth, this.email, this.password)
       .then((data) => {
         console.log("Signed up.");
@@ -72,7 +77,7 @@ export default {
       })
       .catch((error) =>{
         console.log(error.code);
-        alert(error.message);
+        this.invalid = true;
       })
     },
     signInWithGoogle: function () {
@@ -81,7 +86,7 @@ export default {
       .then((result) => {
         this.router.push('/you');
       }).catch((error) => {
-
+        this.invalid = true;
       });
     },
     }

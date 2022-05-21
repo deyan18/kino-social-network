@@ -9,6 +9,7 @@
       </div>
      
         <input type="hidden" name="remember" value="true" />
+        <div>
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
             <label for="email-address" class="sr-only">Email address</label>
@@ -18,29 +19,21 @@
             <label for="password" class="sr-only">Password</label>
             <input id="password" name="password" v-model="password" type="password" autocomplete="current-password" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Password" />
           </div>
+          
         </div>
+        <ErrorMessage v-if="invalid" >The email or password are not valid.</ErrorMessage>
 
-        <div class="flex items-center justify-center">
-
-
-          <div class="text-sm">
+</div>
+        <div class="text-sm flex items-center justify-center">
             <router-link :to="{name: 'ForgotPassword'}" class="font-medium text-purple-600 hover:text-purple-500"> Forgot your password? </router-link>
           </div>
-        </div>
+        
 
-        <div>
-          <button @click="signIn" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <LoginIcon class="h-5 w-5 text-purple-500 group-hover:text-purple-400" aria-hidden="true" />
-            </span>
-            Log In
-          </button>
-          <button @click="signInWithGoogle" class="mt-3 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <LoginIcon class="h-5 w-5 text-red-500 group-hover:text-red-400" aria-hidden="true" />
-            </span>
-            Google
-          </button>
+         
+
+        <div class="space-y-2">
+          <CustomButton @click="signIn" >Log In</CustomButton>
+          <GoogleButton @click="signInWithGoogle">Log In With Google</GoogleButton>
         </div>
          <p class="mt-2 text-center text-sm text-gray-600">
           Or
@@ -55,23 +48,30 @@
 </template>
 
 <script>
-import { LockClosedIcon, LoginIcon } from '@heroicons/vue/solid'
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { useRouter } from 'vue-router';
 import { auth } from '../../firebase.js'
+import CustomButton from '../../components/CustomButton.vue';
+import GoogleButton from './GoogleButton.vue'
+import ErrorMessage from './ErrorMessage.vue'
 export default {
   components: {
-    LockClosedIcon, LoginIcon
+    CustomButton, GoogleButton, ErrorMessage
   },
     data(){
       return{
         email: '',
         password: '',
-        router: useRouter()
+        router: useRouter(),
+        invalid: false,
       }
     },
     methods: {
     signIn: function () {
+      if(!this.email.includes("@") || this.password === "" ){
+        this.invalid = true;
+        return
+      }
       signInWithEmailAndPassword(auth, this.email, this.password)
       .then((data) => {
         console.log("Signed in.");
@@ -79,7 +79,7 @@ export default {
       })
       .catch((error) =>{
         console.log(error.code);
-        alert(error.message);
+        this.invalid = true;
       })
     },
     signInWithGoogle: function () {
@@ -88,7 +88,7 @@ export default {
       .then((result) => {
         this.router.push('/');
       }).catch((error) => {
-
+        this.invalid = true;
       });
     },
     }

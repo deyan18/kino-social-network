@@ -1,6 +1,6 @@
 <template>
 
-<div class="pb-10 bg-gray-200">
+<div class="pb-10 bg-gray-100">
     <div class="bg-white shadow-lg">
     <nav
       class="

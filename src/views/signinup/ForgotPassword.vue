@@ -1,49 +1,113 @@
 <template>
- 
-  <div class="min-h-full flex  items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-64">
+  <div
+    class="
+      min-h-full
+      flex
+      items-center
+      justify-center
+      py-12
+      px-4
+      sm:px-6
+      lg:px-8
+      mb-64
+    "
+  >
     <div class="max-w-md w-full space-y-8">
       <div>
-
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Reset Password</h2>
-       
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Reset Password
+        </h2>
       </div>
-      <form class="mt-8 space-y-6" action="#" method="POST">
+      <div class="mt-8 space-y-6" action="#" method="POST">
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
-          <div>
-            <label for="email-address" class="sr-only">Email address</label>
-            <input id="email-address" name="email" type="email" autocomplete="email" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Email address" />
-          </div>
-
+          <label for="email-address" class="sr-only">Email address</label>
+          <input
+            id="email-address"
+            name="email"
+            type="email"
+            autocomplete="email"
+            v-model="email"
+            required=""
+            class="
+              appearance-none
+              rounded-none
+              relative
+              block
+              w-full
+              px-3
+              py-2
+              border border-gray-300
+              placeholder-gray-500
+              text-gray-900
+              rounded-t-md
+              focus:outline-none
+              focus:ring-purple-500
+              focus:border-purple-500
+              focus:z-10
+              sm:text-sm
+            "
+            placeholder="Email address"
+          />
         </div>
 
-        <div class="flex items-center justify-center">
+        <ErrorMessage v-if="invalid">The email is not valid</ErrorMessage>
+        <ErrorMessage v-if="sent" class="text-blue-600">A recovery email was sent</ErrorMessage>
+        <CustomButton @click="sendRecoveryEmail"
+          >Send Recovery Email</CustomButton
+        >
 
-
- 
+        <div class="text-sm flex items-center justify-center">
+          <router-link
+            :to="{ name: 'SignIn' }"
+            class="font-medium text-purple-600 hover:text-purple-500"
+          >
+            Return to Log In
+          </router-link>
         </div>
-
-        <div>
-          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <InboxIcon class="h-5 w-5 text-purple-500 group-hover:text-purple-400" aria-hidden="true" />
-            </span>
-            Send Recovery Email
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
-    
   </div>
-  
 </template>
 
 <script>
-import { InboxIcon } from '@heroicons/vue/solid'
-
+import CustomButton from "../../components/CustomButton.vue";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../firebase.js";
+import ErrorMessage from "./ErrorMessage.vue";
 export default {
   components: {
-    InboxIcon,
+    CustomButton,
+    ErrorMessage,
   },
-}
+  data() {
+    return {
+      email: "",
+      invalid: false,
+      sent: false,
+    };
+  },
+  methods: {
+    sendRecoveryEmail: function () {
+      this.sent = false;
+      this.invalid = false;
+      console.log("email:", this.email)
+
+      if (!this.email.includes("@")) {
+        this.invalid = true;
+        return;
+      }
+      sendPasswordResetEmail(auth, this.email)
+        .then(() => {
+          this.sent = true;
+        })
+        .catch((error) => {
+          this.invalid = true;
+          console.log(error.code);
+          console.log(error.message);
+          // ..
+        }); 
+    },
+  },
+};
 </script>
