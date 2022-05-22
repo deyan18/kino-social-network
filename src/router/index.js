@@ -9,6 +9,7 @@ import SignUp from '/src/views/SignInUp/SignUp.vue'
 import Profile from '/src/views/Profile/Profile.vue'
 import ForgotPassword from '/src/views/signinup/ForgotPassword.vue'
 import Movies from '/src/views/Movies.vue'
+import ComingSoon from '/src/views/ComingSoon.vue'
 import TVShows from '/src/views/TVShows.vue'
 import WatchList from '/src/views/WatchList/WatchList.vue'
 import Landing from '/src/views/Landing.vue'
@@ -111,6 +112,14 @@ const routes = [
         path: '/movies',
         name: 'Movies',
         component: Movies,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/comingSoon',
+        name: 'ComingSoon',
+        component: ComingSoon,
         meta: {
             requiresAuth: true,
         }

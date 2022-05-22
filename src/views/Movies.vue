@@ -1,7 +1,10 @@
 <template>
+
+<CustomTitle class="mb-6">Movies</CustomTitle>
+
   <!-- Search Bar -->
   <div class="container px-5 mx-auto">
-    <div class="text-center mb-10">
+    <div class="text-center mb-5">
       <div class="flex w-full justify-center flex-row">
         <div
           class="
@@ -29,6 +32,12 @@
     </div>
   </div>
 
+  <p class="mt-2 mb-4 text-center text-sm text-gray-600">
+          Check out what's
+          {{ ' ' }}
+          <router-link :to="{name: 'ComingSoon'}" class="font-medium text-purple-600 hover:text-purple-500"> coming soon </router-link>
+        </p>
+
  <Spinner v-if="showSpinner"></Spinner>
   <NoResults v-if="!showSpinner && results.length === 0" >No results</NoResults>
 
@@ -52,8 +61,9 @@ import CustomButton from "../components/CustomButton.vue";
 import ContentList from "../components/ContentList.vue";
 import Spinner from "../components/Spinner.vue";
 import NoResults from "../components/NoResults.vue";
+import CustomTitle from "../components/CustomTitle.vue";
 export default {
-  components: { Card, CustomButton, ContentList, Spinner, NoResults },
+  components: { Card, CustomButton, ContentList, Spinner, NoResults, CustomTitle },
   data() {
     return {
       results: [],

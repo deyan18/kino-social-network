@@ -1,5 +1,7 @@
 <template>
-  <div class="container px-5 mx-auto">
+
+<CustomTitle class="mb-6">TV Shows</CustomTitle>
+
     <!-- Search Bar -->
     <div class="text-center mb-10">
       <div class="flex w-full justify-center flex-row">
@@ -28,7 +30,7 @@
         </div>
       </div>
     </div>
-  </div>
+
   <Spinner v-if="showSpinner"></Spinner>
   <NoResults v-if="!showSpinner && results.length === 0" >No results</NoResults>
   <!-- Results -->
@@ -50,8 +52,9 @@ import CustomButton from "../components/CustomButton.vue";
 import ContentList from "../components/ContentList.vue";
 import Spinner from "../components/Spinner.vue";
 import NoResults from "../components/NoResults.vue";
+import CustomTitle from "../components/CustomTitle.vue";
 export default {
-  components: { Card, CustomButton, ContentList, Spinner, NoResults },
+  components: { Card, CustomButton, ContentList, Spinner, NoResults, CustomTitle },
   data() {
     return {
       results: [],

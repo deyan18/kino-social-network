@@ -369,3 +369,16 @@ export const getWatchList = async i => {
   return items;
 }
 
+export const getComingSoon = async i => {
+
+  let items = [];
+  const colRef = collection(db, "comingSoon/");
+  const q = query(colRef);
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    items.push(doc.data());
+  });
+
+  return items;
+}

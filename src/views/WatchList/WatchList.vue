@@ -1,6 +1,7 @@
 <template>
-  <CustomTitle v-if="items.length !== 0">Watch List</CustomTitle>
-  <NoResults v-if="items.length === 0" >Your watch list is empty</NoResults>
+  <CustomTitle >Watch List</CustomTitle>
+  <Spinner v-if="showSpinner"></Spinner>
+  <NoResults v-if="items.length === 0 && !showSpinner" >Your watch list is empty</NoResults>
   <ul class="flex flex-wrap place-content-center" v-if="items.length > 0">
     <WatchListCard
       v-for="item in items"
@@ -21,12 +22,14 @@ import CustomTitle from "../../components/CustomTitle.vue";
 import { getWatchList, auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import NoResults from "../../components/NoResults.vue";
+import Spinner from "../../components/Spinner.vue";
 export default {
-  components: { WatchListCard, CustomTitle, NoResults },
+  components: { WatchListCard, CustomTitle, NoResults, Spinner },
   props: ["id"],
   data() {
     return {
       items: [],
+      showSpinner: false,
     };
   },
   mounted() {
@@ -39,8 +42,11 @@ export default {
   },
   methods: {
     updateItems: function () {
-      this.items = getWatchList().then((data) => {
+      this.showSpinner = true;
+      this.items =[]
+     getWatchList().then((data) => {
         this.items = data;
+        this.showSpinner = false;
       });
     },
   },
