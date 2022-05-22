@@ -12,6 +12,7 @@ import Movies from '/src/views/Movies.vue'
 import TVShows from '/src/views/TVShows.vue'
 import WatchList from '/src/views/WatchList/WatchList.vue'
 import Landing from '/src/views/Landing.vue'
+import PageNotFound from '/src/views/PageNotFound.vue'
 import { onAuthStateChanged} from '@firebase/auth'
 import { auth } from '../firebase.js'
 const routes = [
@@ -28,6 +29,12 @@ const routes = [
         path: '/about',
         name: 'About',
         component: About
+    }
+    ,
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: PageNotFound
     }
     ,
     {
