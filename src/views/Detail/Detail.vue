@@ -18,10 +18,12 @@
         px-5
         py-10
         md:flex-row
+        mx-auto
+        md:w-4/5
       "
     >
       <!-- Left side (Image) -->
-      <div class="w-5/6 md:w-1/2 lg:w-96 lg:max-w-lg">
+      <div class="md:w-2/3 w-3/4 lg:w-3/5">
         <img
           class="rounded-[22px] object-cover object-center mb-3 shadow-xl"
           alt="hero"
@@ -32,7 +34,8 @@
       <!-- Right side (Text) -->
       <div
         class="
-          md:w-1/2
+          
+          w-fit
           rounded-2xl
           bg-white
           shadow-xl
@@ -45,6 +48,7 @@
           pl-8
           md:text-left
           pr-8
+          mx-auto
         "
       >
         <DetailData>
@@ -55,8 +59,13 @@
 
     
 
-        <div class="flex space-x-2">
-          <DetailShareButton @click="openShare = true"></DetailShareButton>
+        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+
+          <CustomButton
+            @click="openShare=true"
+            class="w-44"
+            >Share</CustomButton
+          >
           <CustomButton
             v-if="!inWatchList"
             @click="addWatchList"
@@ -81,7 +90,6 @@
 
 <script>
 import Post from "../../components/Post/Post.vue";
-import DetailShareButton from "./DetailShareButton.vue";
 import Share from "../../components/Share.vue";
 import DetailData from "./DetailData.vue";
 import {
@@ -94,7 +102,7 @@ import {
 import CustomButton from "../../components/CustomButton.vue";
 import { onAuthStateChanged } from "firebase/auth";
 export default {
-  components: { Share, DetailData, DetailShareButton, Post, CustomButton },
+  components: { Share, DetailData, Post, CustomButton },
   props: ["id"],
   data() {
     return {

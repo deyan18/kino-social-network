@@ -1,6 +1,6 @@
 <template>
 
-<div class="bg-black  bg-opacity-40 w-full h-full absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+<div class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
     <div class="w-96  px-5 py-10 m-auto mt-10 bg-white rounded-lg shadow absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <XCircleIcon @click="$emit('close')" class="w-8 absolute right-2 top-1 pt-2 mr-2 opacity-60 hover:opacity-100 cursor-pointer" ></XCircleIcon>
         <div class="mb-6 text-3xl font-light text-center text-gray-800 ">
