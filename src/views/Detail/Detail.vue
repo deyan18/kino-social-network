@@ -5,6 +5,7 @@
       :id="itemData.id"
       :title="itemData.title"
       :img="itemData.image"
+      :already-shared="alreadyShared"
       @close="openShare = false"
     ></Share>
     <div
@@ -61,10 +62,15 @@
 
         <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
 
-          <CustomButton
+          <CustomButton v-if="!alreadyShared"
             @click="openShare=true"
             class="w-44"
             >Share</CustomButton
+          >
+          <CustomButton v-if="alreadyShared"
+            @click="openShare=true"
+            class="w-44"
+            >Edit</CustomButton
           >
           <CustomButton
             v-if="!inWatchList"
@@ -98,6 +104,7 @@ import {
   auth,
   isInWatchList,
   removeFromWatchList,
+  hasBeenShared
 } from "../../firebase";
 import CustomButton from "../../components/CustomButton.vue";
 import { onAuthStateChanged } from "firebase/auth";
@@ -110,6 +117,7 @@ export default {
       itemData: [],
       posts: [],
       inWatchList: false,
+      alreadyShared: false,
     };
   },
   mounted() {
@@ -117,6 +125,10 @@ export default {
       if (user) {
         isInWatchList(this.id).then((data) => {
           this.inWatchList = data;
+        });
+
+        hasBeenShared(this.id).then((data) => {
+          this.alreadyShared = data;
         });
       } else {
       }

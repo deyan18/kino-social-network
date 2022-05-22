@@ -62,7 +62,6 @@
       <div class="flex space-x-3">
 
         <CustomButton @click="signOut" class="bg-orange-600 hover:bg-orange-700">Sign Out</CustomButton>   
-        <CustomButton class="bg-red-600 hover:bg-red-700">Delete Account</CustomButton>
 
       </div>
     </div>
