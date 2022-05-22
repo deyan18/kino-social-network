@@ -54,7 +54,7 @@
           />
         </div>
       </div>
-
+        <ErrorMessage v-if="invalid" >The entered data is invalid.</ErrorMessage>
 
         <CustomButton @click="saveChanges">Save Changes</CustomButton>   
 
@@ -70,22 +70,20 @@
 </template>
 
 <script>
-import { LockClosedIcon, TrashIcon, LogoutIcon } from "@heroicons/vue/solid";
 import { signOut } from "@firebase/auth";
-import { auth, getUser, saveUserData, changeEmail } from "../../firebase.js";
+import { auth, getUser, saveUserData, changeEmail, changePassword } from "../../firebase.js";
 import { useRouter } from "vue-router";
 import CustomTitle from "../../components/CustomTitle.vue"
 import UserIcon from "../../components/UserIcon.vue";
 import CustomButton from "../../components/CustomButton.vue";
+import ErrorMessage from "../SignInUp/ErrorMessage.vue";
 
 export default {
   components: {
     CustomButton,
-    LockClosedIcon,
-    TrashIcon,
-    LogoutIcon,
     CustomTitle,
-    UserIcon
+    UserIcon,
+    ErrorMessage
   },
   data() {
     return {
@@ -96,6 +94,7 @@ export default {
       newPassword: "",
       confirmPassword: "",
       defaultEmail:"",
+      invalid: false,
       router: useRouter(),
     };
   },
@@ -119,10 +118,25 @@ export default {
     },
     
     saveChanges: function () {
+      this.invalid = false;
+      if(this.name === "" || !this.email.includes("@")){
+        this.invalid = true;
+        return;
+      }
       saveUserData(this.name, this.bio);
       if(this.defaultEmail != this.email){
         changeEmail(this.email);
       }
+      if(this.newPassword != ""){
+        if(this.newPassword.length >= 6 && this.newPassword == this.confirmPassword){
+        changePassword(this.newPassword);
+        this.signOut();
+      }else{
+        this.invalid = true;
+        return;
+      }
+      }
+      
       this.router.push("/profile");
     },
   },

@@ -30,7 +30,7 @@
   </div>
 
  <Spinner v-if="showSpinner"></Spinner>
-
+  <NoResults v-if="!showSpinner && results.length === 0" >No results</NoResults>
 
   
   <!-- Results -->

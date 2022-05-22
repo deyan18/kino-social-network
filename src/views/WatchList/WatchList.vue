@@ -1,5 +1,6 @@
 <template>
-  <CustomTitle>Watch List</CustomTitle>
+  <CustomTitle v-if="items.length !== 0">Watch List</CustomTitle>
+  <NoResults v-if="items.length === 0" >Your watch list is empty</NoResults>
   <ul class="flex flex-wrap place-content-center" v-if="items.length > 0">
     <WatchListCard
       v-for="item in items"
@@ -19,8 +20,9 @@ import WatchListCard from "../WatchList/WatchListCard.vue";
 import CustomTitle from "../../components/CustomTitle.vue";
 import { getWatchList, auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import NoResults from "../../components/NoResults.vue";
 export default {
-  components: { WatchListCard, CustomTitle },
+  components: { WatchListCard, CustomTitle, NoResults },
   props: ["id"],
   data() {
     return {

@@ -60,7 +60,7 @@
 
     
 
-        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0  items-center">
 
           <CustomButton v-if="!alreadyShared"
             @click="openShare=true"
@@ -81,7 +81,7 @@
           <CustomButton
             v-if="inWatchList"
             @click="removeWatchList"
-            class="w-52 bg-gray-600"
+            class="w-56 bg-gray-600"
             >Remove from Watch List</CustomButton
           >
         </div>

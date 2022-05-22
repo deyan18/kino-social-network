@@ -1,4 +1,5 @@
 <template>
+<div class="pt-32">
      <div class="flex flex-grow justify-center">
     <img
         
@@ -8,7 +9,8 @@
       />
       
   </div>
-  <CustomTitleVue>No Results</CustomTitleVue>
+  <CustomTitleVue class="text-2xl sm:text-3xl"><slot></slot></CustomTitleVue>
+  </div>
 </template>
 
 

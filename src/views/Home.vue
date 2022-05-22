@@ -39,7 +39,8 @@
     </div>
   </div>
   <Spinner v-if="showSpinner"></Spinner>
-  <NoResults v-if="!showSpinner && (searchResults.length === 0 &&  resultUsers.length === 0) && showingSearch" ></NoResults>
+  <NoResults v-if="!showSpinner && (searchResults.length === 0 &&  resultUsers.length === 0) && showingSearch" >No results</NoResults>
+  <NoResults v-if="!showSpinner && !showingSearch && feed.length === 0" >You're not following anyone yet</NoResults>
   <!-- Content -->
 
   <!-- Movies/TV Shows results -->
@@ -174,6 +175,7 @@ export default {
                 this.showSpinner = false;
               });
             }
+            this.showSpinner = false;
           });
         }
       });

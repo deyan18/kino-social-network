@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
-import { getAuth, updateEmail, deleteUser } from 'firebase/auth'
+import { getAuth, updateEmail, updatePassword } from 'firebase/auth'
 import { doc, setDoc, getDoc, addDoc, collection, deleteDoc, getDocs, query, where } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyDVOORBzibfTf15HOnjBMxyd-G3GBhmmbA",
@@ -259,7 +259,6 @@ export const saveUserData = (name, bio) => {
   }
 }
 
-// TODO: FALLA
 export const changeEmail = (email) => {
   if (email === "") {
     return;
@@ -268,9 +267,22 @@ export const changeEmail = (email) => {
   updateEmail(auth.currentUser, email).then(() => {
 
   }).catch((error) => {
-
+    console.log(error);
   });
 }
+
+export const changePassword = (pass) => {
+  if (pass === "") {
+    return;
+  }
+
+  updatePassword(auth.currentUser, pass).then(() => {
+    // Update successful.
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
 
 export const sharePost = (contentID, title, img, text, stars) => {
   if (text === "") {
