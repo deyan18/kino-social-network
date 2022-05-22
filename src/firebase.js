@@ -33,6 +33,18 @@ export const getUser = async id => {
   return docData;
 }
 
+export const userExistsInDB = async userID => {
+  if (userID == null) {
+    userID = auth.currentUser.uid;
+  }
+
+  const docRef = doc(db, "users", userID);
+  const docSnap = await getDoc(docRef);
+  
+
+  return docSnap.exists();
+}
+
 
 export const getPostsByContent = async contentID => {
 
@@ -211,6 +223,7 @@ export const saveUserData = (name, bio) => {
   if (name === "") {
     return;
   }
+
 
   try {
     setDoc(doc(db, "users", auth.currentUser.uid), {

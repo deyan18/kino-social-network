@@ -50,7 +50,7 @@
 <script>
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { useRouter } from 'vue-router';
-import { auth } from '../../firebase.js'
+import { auth, userExistsInDB, saveUserData } from '../../firebase.js'
 import CustomButton from '../../components/CustomButton.vue';
 import GoogleButton from './GoogleButton.vue'
 import ErrorMessage from './ErrorMessage.vue'
@@ -74,8 +74,9 @@ export default {
       }
       signInWithEmailAndPassword(auth, this.email, this.password)
       .then((data) => {
+        
         console.log("Signed in.");
-        this.router.push('/you');
+        this.router.push('/');
       })
       .catch((error) =>{
         console.log(error.code);
@@ -86,8 +87,17 @@ export default {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
       .then((result) => {
+
+        userExistsInDB().then((exists) => {
+          console.log("Exists?", exists);
+          if(!exists){
+            saveUserData(auth.currentUser.displayName, '');
+          }
         this.router.push('/');
+      });
+        
       }).catch((error) => {
+        console.log(error)
         this.invalid = true;
       });
     },

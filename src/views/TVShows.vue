@@ -84,7 +84,7 @@ export default {
     showTopTVShows: function () {
       this.results = [];
         this.showSpinner = true;
-      fetch("https://imdb-api.com/en/API/Top250TVs/k_qy6es45c")
+      fetch("https://imdb-api.com/en/API/MostPopularTVs/k_qy6es45c")
         .then((response) => response.json())
         .then((result) => {
           this.results = result.items;

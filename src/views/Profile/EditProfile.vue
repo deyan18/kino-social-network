@@ -109,7 +109,7 @@ export default {
       this.defaultEmail = data.email;
     })
     this.email = auth.currentUser.email;
-  
+
   },
   methods: {
     signOut: function () {
