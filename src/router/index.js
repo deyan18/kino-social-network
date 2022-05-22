@@ -11,6 +11,7 @@ import ForgotPassword from '/src/views/signinup/ForgotPassword.vue'
 import Movies from '/src/views/Movies.vue'
 import TVShows from '/src/views/TVShows.vue'
 import WatchList from '/src/views/WatchList/WatchList.vue'
+import Landing from '/src/views/Landing.vue'
 import { onAuthStateChanged} from '@firebase/auth'
 import { auth } from '../firebase.js'
 const routes = [
@@ -18,6 +19,9 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+        meta: {
+            requiresAuth: true,
+        }
     }
     ,
     {
@@ -39,14 +43,20 @@ const routes = [
         path: '/detail/:id',
         name: 'Detail',
         component: Detail,
-        props: true
+        props: true,
+        meta: {
+            requiresAuth: true,
+        }
     }
     ,
     {
         path: '/user/:id',
         name: 'UserProfile',
         component: UserProfile,
-        props: true
+        props: true,
+        meta: {
+            requiresAuth: true,
+        }
     }
     ,
     {
@@ -93,13 +103,24 @@ const routes = [
     {
         path: '/movies',
         name: 'Movies',
-        component: Movies
+        component: Movies,
+        meta: {
+            requiresAuth: true,
+        }
     }
     ,
     {
         path: '/tvshows',
         name: 'TVShows',
-        component: TVShows
+        component: TVShows,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/welcome',
+        name: 'Landing',
+        component: Landing
     }
 ]
 const router = createRouter({
@@ -125,7 +146,7 @@ router.beforeEach(async (to, from, next) =>{
         if(await getCurrentUser()){
             next();
         }else{
-            next('/signin');  
+            next('/welcome');  
         }
     } else if(to.matched.some((record) => record.meta.requiresLoggedOut)){
         if(await getCurrentUser()){
