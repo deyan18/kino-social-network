@@ -1,5 +1,5 @@
 <template>
-<ul class="flex flex-row flex-wrap fixed top-0 h-screen">
+<ul class="flex flex-row flex-wrap fixed top-0 h-screen w-screen bg-white">
   <img v-for="result in results" :key="result.id" class="lg:w-1/6 sm:w-1/4 w-1/2" :src="result.image">
 </ul>
     
