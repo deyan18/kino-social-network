@@ -20,7 +20,7 @@ In Firebase Firestore there are no specific end points, instead we use a series 
 
 For instance we can get the data associated to a specific user with the `getDoc` function. We first create document reference, in which we specify the document path. `docSnap` contains a snapshot of the data obtained from the query.
 
-`docRef = doc(db, "users", id);  
+`docRef = doc(db, "users", id); <br>
 docSnap = await getDoc(docRef);`
 
 The [Firestore documentation](https://firebase.google.com/docs/firestore) contains plenty of information on how to use all of the functions previously mentioned. 
