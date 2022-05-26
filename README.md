@@ -6,4 +6,4 @@ Individual project where the knowledge acquired in the subject will be put into 
 
 ## Data Model
 
-<img src="docs/dataModel.PNG">
+<img src="docs/dataModel.png">
