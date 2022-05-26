@@ -1,6 +1,8 @@
-# Vue 3 + Vite
+# Kino
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+[Kino Website](watching-b9991.web.app).
+
+Individual project where the knowledge acquired in the subject will be put into practice, taking as an example the IMDb API to query data about movies and tv shows to provide content for the Kino Social Media App.
 
 ## Recommended IDE Setup
 
