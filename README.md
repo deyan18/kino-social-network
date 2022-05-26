@@ -6,4 +6,4 @@ Individual project where the knowledge acquired in the subject will be put into 
 
 ## Data Model
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+<img src="docs/dataModel.PNG">
