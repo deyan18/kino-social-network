@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  kino-app:
+    container_name: kino-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '5000:8080'

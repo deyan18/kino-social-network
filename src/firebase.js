@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getAuth, updateEmail, updatePassword } from 'firebase/auth'
-import { doc, setDoc, getDoc, addDoc, collection, deleteDoc, getDocs, query, where } from "firebase/firestore";
+import { doc, setDoc, getDoc, addDoc, collection, deleteDoc, getDocs, query, where, orderBy } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyDVOORBzibfTf15HOnjBMxyd-G3GBhmmbA",
   authDomain: "watching-b9991.firebaseapp.com",
@@ -117,7 +117,7 @@ export const getPostsByUser = async userID => {
 
   let posts = [];
   const colRef = collection(db, "users/" + userID + "/posts");
-  const q = query(colRef);
+  const q = query(colRef, orderBy('date', "desc"));
 
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
@@ -143,7 +143,7 @@ export const getFollowing = async test => {
 
 }
 
-export const getFeed = async test => {
+export const getFeed = async i => {
   let following = [];
   let posts = [];
 

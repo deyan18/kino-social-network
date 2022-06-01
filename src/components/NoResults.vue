@@ -3,7 +3,7 @@
      <div class="flex flex-grow justify-center">
     <img
         
-        src="../assets/NoResults.png"
+        src="../assets/noResults.png"
         class="h-20 "
         alt=""
       />
