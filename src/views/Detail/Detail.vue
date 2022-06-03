@@ -14,17 +14,18 @@
         flex flex-col
         items-center
         justify-center
+        align-center
         body-font
         text-gray-600
         px-5
-        py-10
+        pb-10
         md:flex-row
         mx-auto
-        md:w-4/5
+        lg:w-4/5
       "
     >
       <!-- Left side (Image) -->
-      <div class="md:w-2/3 w-3/4 lg:w-3/5">
+      <div class="md:w-2/3 w-3/4 lg:w-2/5">
         <img
           class="rounded-[22px] object-cover object-center mb-3 shadow-xl"
           alt="hero"
@@ -35,12 +36,12 @@
       <!-- Right side (Text) -->
       <div
         class="
-          
+          align-center
           w-fit
           rounded-2xl
           bg-white
           shadow-xl
-          mb-16
+          
           py-10
           flex flex-col
           items-center
