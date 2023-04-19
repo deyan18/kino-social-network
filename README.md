@@ -1,26 +1,39 @@
-# Kino
+# KINO - Movie and TV Show Social Network
 
-[Kino Website](https://watching-b9991.web.app)
+![App screenshots](https://i.imgur.com/F2vZSD6.png)
 
-An individual project where the knowledge acquired in the subject of Rapid Application Development will be put into practice, taking as an example the IMDb API to query data about movies and tv shows to provide content for the Kino Social Media App.
+KINO is a social network designed for people to share their opinions on movies and TV shows. 
+[KINO Website](https://watching-b9991.web.app)
 
-## Data Model
+## Features
 
-<img src="docs/dataModel.png">
+- User Authentication: Users can sign in with email and password, or with Google, and can also recover their password, all done with Firebase authentication.
+![User Authentication](https://i.imgur.com/3VnrFSt.png)
+- Profile Editing: Users can edit their profile information, including profile picture, and can also logout and delete their profile.
+![Profile edit screenshots](https://i.imgur.com/edN3nRV.png)
+- DiceBearAPI: Users' profile pictures are automatically assigned using the DiceBearAPI.
+- Firestore: All app data is stored in Firebase Firestore.
+- Movie and TV Show Browsing: Users can browse movies and TV shows obtained from the IMBdAPI, open them for more details, and share a post rating them.
+![Movie and TV Show Browsing screenshots](https://i.imgur.com/ve8PaSE.png)
+- Friend Search: Users can search for friends, open their profiles to see the movies they've shared, and follow them.
+- Feed: Users can access their feed where they see their friends' latest posts.
+- Comments: Users can post comments on another user's post and see the other comments that are posted.
+![Feed screenshots](https://i.imgur.com/0QtHzm4.png)
+- Watch List: Users can add movies to their watch list.
+- Coming Soon: Users can access a "coming soon" section that was done by scraping a website with Python.
+- Firebase Hosting: The web app is hosted with Firebase Hosting.
 
-## End Points
+## What I Learned
 
-In Firebase Firestore there are no specific end points instead, we use a series of functions in which we specify collections and documents to access the data. In this project we make use of the following functions:
-* **`setDoc`** Set the data of a document within a collection, explicitly specifying a document identifier.
-* **`addDoc`** Add a new document to a collection, automatically generating the document identifier.
-* **`deleteDoc`** Delete a document specifying its identifier.
-* **`getDoc`** Retrieve the contents of a single document specifying its identifier.
-* **`getDocs`** Retrieve multiple documents with one request by querying documents in a collection.
-* **`onSnapshot`** Each time the contents of a document or a collection change the snapshot is updated.
+During the development of KINO, I gained several new skills and knowledge, including:
 
-For instance, we can get the data associated with a specific user with the `getDoc` function. We first create a document reference, in which we specify the document path. `docSnap` contains a snapshot of the data obtained from the query.
+- Vue.js: This was my first time using Vue.js, and I learned how to develop web apps with Vue.js.
+- TailwindCSS: This was my first time using TailwindCSS, and I learned how to create responsive and stylish user interfaces.
+- Web Scraping: I learned how to scrape a website with Python to obtain data for the "coming soon" section of the app.
+- Docker: I learned how to use Docker for containerization of the application, making it easier to manage dependencies and deploy the app.
+- Firebase Hosting: I learned how to use Firebase Hosting to host and deploy the web app, making it accessible to users online.
 
-`docRef = doc(db, "users", id);` <br>
-`docSnap = await getDoc(docRef);`
+## Conclusion
 
-The [Firestore documentation](https://firebase.google.com/docs/firestore) contains plenty of information on how to use all of the functions previously mentioned. 
+KINO is a project that showcases my skills in front-end web development using Vue.js, Firebase authentication and Firestore for user authentication and data management, TailwindCSS for responsive UI design, and web scraping with Python. It was a great learning experience, and I am excited about the potential for future development of KINO, including adding more social features and implementing recommendation systems. I hope you enjoy using KINO as a platform to share your opinions on movies and TV shows with your friends!
+
