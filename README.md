@@ -2,8 +2,7 @@
 
 ![App screenshots](https://i.imgur.com/F2vZSD6.png)
 
-KINO is a social network designed for people to share their opinions on movies and TV shows. 
-[KINO Website](https://watching-b9991.web.app)
+KINO is a social network designed for people to share their opinions on movies and TV shows.
 
 ## Features
 
